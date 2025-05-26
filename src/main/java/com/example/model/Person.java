@@ -4,15 +4,15 @@ package com.example.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record Person(
-    @JsonProperty("id") String id,
+    @JsonProperty("id") int id,
     @JsonProperty("firstName") String firstName,
     @JsonProperty("lastName") String lastName,
     @JsonProperty("age") int age,
     @JsonProperty("gender") String gender
-) {
+    ) {
     public Person {
-        if (id == null || id.trim().isEmpty()) {
-            throw new IllegalArgumentException("ID cannot be null or empty");
+        if (id <= 0) {
+            throw new IllegalArgumentException("ID must be a positive integer");
         }
         if (firstName == null || firstName.trim().isEmpty()) {
             throw new IllegalArgumentException("First name cannot be null or empty");
