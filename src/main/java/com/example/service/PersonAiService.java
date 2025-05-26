@@ -16,7 +16,7 @@ public interface PersonAiService {
         Generate exactly 10 unique persons with the following JSON structure:
         [
           {
-            "id": "unique_id_string",
+            "id": unique_id_number,
             "firstName": "first_name",
             "lastName": "last_name", 
             "age": number_between_18_and_80,
@@ -25,7 +25,7 @@ public interface PersonAiService {
         ]
 
         Requirements:
-        - Each person must have a unique ID (like PERSON_001, PERSON_002, etc.)
+        - Each person must have a unique integer ID (like 1, 2, 3, etc.)
         - Use realistic first and last names
         - Ages should be between 18 and 80
         - Gender should be either "Male" or "Female"
@@ -42,7 +42,7 @@ public interface PersonAiService {
 
         Return the result in this exact JSON format:
         {
-          "id": "person_id",
+          "id": person_id_number,
           "firstName": "first_name",
           "lastName": "last_name",
           "age": age_number,
@@ -56,5 +56,5 @@ public interface PersonAiService {
 
         Return ONLY the JSON object, no additional text.
         """)
-    String getPersonById(@MemoryId String sessionId, String id);
-}
+    String getPersonById(@MemoryId String sessionId, int id);
+    }
