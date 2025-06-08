@@ -1,4 +1,4 @@
-package com.example;
+package pl.piomin.quarkus.ai;
 
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
