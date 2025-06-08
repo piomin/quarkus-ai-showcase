@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PersonResponse {
 
-    List<Person> persons;
+    private List<Person> persons;
 
     public List<Person> getPersons() {
         return persons;
