@@ -49,8 +49,6 @@ export MISTRAL_API_KEY=your-mistral-api-key
 
 # For Ollama
 export AI_MODEL_PROVIDER=ollama
-export OLLAMA_BASE_URL=http://localhost:11434  # Optional, this is the default
-export OLLAMA_MODEL=llama2  # Optional, this is the default
 ```
 
 ### Model Configuration
@@ -58,17 +56,18 @@ export OLLAMA_MODEL=llama2  # Optional, this is the default
 Each provider has configurable models and parameters in `src/main/resources/application.properties`:
 
 **OpenAI Models:**
-- `gpt-3.5-turbo` (default)
+- `gpt-4o-mini` (default)
 - `gpt-4`
 - `gpt-4-turbo`
 
 **Mistral AI Models:**
-- `mistral-small` (default)
+- `mistral-tiny` (default)
+- `mistral-small`
 - `mistral-medium`
 - `mistral-large`
 
 **Ollama Models:**
-- `llama2` (default)
+- `llama3.2` (default)
 - `codellama`
 - `mistral`
 - Any other model you have pulled
@@ -137,7 +136,7 @@ Generates a list of 10 random persons using AI.
 
 **Example Request:**
 ```bash
-curl -X GET http://localhost:8080/api/persons/generate
+curl -X GET http://localhost:8080/api/persons
 ```
 
 **Example Response:**
@@ -216,7 +215,7 @@ curl -X GET http://localhost:8080/api/persons/1
          │                  │                  │
  ┌───────▼────────┐ ┌───────▼────────┐ ┌──────▼───────┐
  │     OpenAI     │ │   Mistral AI   │ │    Ollama    │
- │   (gpt-3.5)    │ │ (mistral-small)│ │   (llama2)   │
+ │   (gpt-4o-mini)│ │ (mistral-small)│ │   (llama3.2) │
  └────────────────┘ └────────────────┘ └──────────────┘
 ```
 
@@ -240,7 +239,7 @@ src/main/java/com/example/
 
 ### Hot Reload Development
 ```bash
-./mvnw quarkus:dev
+./mvnw quarkus:dev -P(open-ai|mistral-ai|ollama)
 ```
 This enables hot reload—changes to your code will be automatically reflected without restarting the application.
 
