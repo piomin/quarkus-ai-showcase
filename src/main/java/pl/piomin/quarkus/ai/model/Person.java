@@ -2,12 +2,12 @@ package pl.piomin.quarkus.ai.model;
 
 public class Person {
 
-    Integer id;
-    String firstName;
-    String lastName;
-    int age;
-    String nationality;
-    Gender gender;
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String nationality;
+    private Gender gender;
 
     public Integer getId() {
         return id;
