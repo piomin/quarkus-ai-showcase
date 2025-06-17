@@ -19,19 +19,19 @@ public class Config {
     @ConfigProperty(name = "ai.model.provider", defaultValue = "openai")
     String modelProvider;
 
-    @Produces
-    public ChatMemoryStore chatMemoryStore() {
-        return new InMemoryChatMemoryStore();
-    }
-
-    @Produces
-    public ChatMemoryProvider chatMemoryProvider(ChatMemoryStore chatMemoryStore) {
-        return memoryId -> MessageWindowChatMemory.builder()
-                .chatMemoryStore(chatMemoryStore)
-                .maxMessages(20)
-                .id(memoryId)
-                .build();
-    }
+//    @Produces
+//    public ChatMemoryStore chatMemoryStore() {
+//        return new InMemoryChatMemoryStore();
+//    }
+//
+//    @Produces
+//    public ChatMemoryProvider chatMemoryProvider(ChatMemoryStore chatMemoryStore) {
+//        return memoryId -> MessageWindowChatMemory.builder()
+//                .chatMemoryStore(chatMemoryStore)
+//                .maxMessages(20)
+//                .id(memoryId)
+//                .build();
+//    }
 
     void onStart(@Observes StartupEvent ev) {
         LOG.info("===========================================");

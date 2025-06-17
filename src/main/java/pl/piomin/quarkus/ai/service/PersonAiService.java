@@ -21,19 +21,18 @@ public interface PersonAiService {
         - Each person must have a unique integer ID (like 1, 2, 3, etc.)
         - Use realistic first and last names per each nationality
         - Ages should be between 18 and 80
-        - Gender should be either "Male" or "Female"
         - Return ONLY the JSON array, no additional text
         """)
-    PersonResponse generatePersonList();
+    PersonResponse generatePersonList(@MemoryId int userId);
 
     @SystemMessage("""
-        You are a helpful assistant that can recall previously generated person data.
-        The user has previously generated a list of 10 persons.
+        You are a helpful assistant that can recall generated person data from chat memory.
+        The user has previously generated a list of 10 persons in chat memory.
         """)
     @UserMessage("""
-        From the previously generated list of persons, please return the person with ID: {id}
+        In the previously generated list of persons, find and return the person with id {id}.
         
         Return ONLY the JSON object, no additional text.
         """)
-    Person getPersonById(Integer id);
+    Person getPersonById(@MemoryId int userId, int id);
     }

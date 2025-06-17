@@ -9,7 +9,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.logging.Logger;
 
-@Path("/api/persons")
+@Path("/api")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PersonController {
@@ -19,18 +19,16 @@ public class PersonController {
     @Inject
     PersonAiService personAiService;
 
-    @Inject
-    ObjectMapper objectMapper;
-
     @GET
-    public PersonResponse generatePersons() {
-        return personAiService.generatePersonList();
+    @Path("/{userId}/persons")
+    public PersonResponse generatePersons(@PathParam("userId") int userId) {
+        return personAiService.generatePersonList(userId);
     }
 
     @GET
-    @Path("/{id}")
-    public Person getPersonById(@PathParam("id") int id) {
-        return personAiService.getPersonById(id);
+    @Path("/{userId}/persons/{id}")
+    public Person getPersonById(@PathParam("userId") int userId, @PathParam("id") int id) {
+        return personAiService.getPersonById(userId, id);
     }
 
 }
