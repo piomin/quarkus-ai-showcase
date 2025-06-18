@@ -16,8 +16,11 @@ public class PersonController {
 
     private static final Logger LOG = Logger.getLogger(PersonController.class);
 
-    @Inject
     PersonAiService personAiService;
+
+    public PersonController(PersonAiService personAiService) {
+        this.personAiService = personAiService;
+    }
 
     @GET
     @Path("/{userId}/persons")
