@@ -4,10 +4,12 @@ import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
+import jakarta.enterprise.context.ApplicationScoped;
 import pl.piomin.quarkus.ai.api.PersonResponse;
 import pl.piomin.quarkus.ai.model.Person;
 
 @RegisterAiService
+@ApplicationScoped
 public interface PersonAiService {
 
     @SystemMessage("""
@@ -27,12 +29,12 @@ public interface PersonAiService {
 
     @SystemMessage("""
         You are a helpful assistant that can recall generated person data from chat memory.
-        The user has previously generated a list of 10 persons in chat memory.
         """)
     @UserMessage("""
-        In the previously generated list of persons, find and return the person with id {id}.
+        In the previously generated list of persons for user {userId}, find and return the person with id {id}.
         
         Return ONLY the JSON object, no additional text.
         """)
     Person getPersonById(@MemoryId int userId, int id);
-    }
+
+}
