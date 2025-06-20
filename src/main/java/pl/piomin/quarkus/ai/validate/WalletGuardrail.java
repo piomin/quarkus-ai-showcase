@@ -15,8 +15,12 @@ public class WalletGuardrail implements OutputGuardrail {
 
     Pattern pattern = Pattern.compile("\\*\\*\\*(.*?)\\*\\*\\*");
 
-    @Inject
     private Logger log;
+	
+    @Inject
+    public WalletGuardrail(Logger log) {
+        this.log = log;
+    }
 
     @Override
     public OutputGuardrailResult validate(AiMessage responseFromLLM) {

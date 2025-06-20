@@ -17,11 +17,17 @@ import java.util.List;
 @ApplicationScoped
 public class StockTools {
 
-    @Inject
     private Logger log;
-    @Inject
+    
     @RestClient
     private StockDataClient stockDataClient;
+    
+    @Inject
+    public StockTools(StockDataClient stockDataClient, Logger log) {
+        this.stockDataClient = stockDataClient;
+        this.log = log;
+    }
+    
     @ConfigProperty(name = "STOCK_API_KEY", defaultValue = "none")
     String apiKey;
 
