@@ -1,18 +1,15 @@
 package pl.piomin.quarkus.ai.resources;
 
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import pl.piomin.quarkus.ai.api.PersonResponse;
 import pl.piomin.quarkus.ai.model.Person;
 import pl.piomin.quarkus.ai.service.PersonAiService;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import org.jboss.logging.Logger;
 
 @Path("/api")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PersonController {
-
-    private static final Logger LOG = Logger.getLogger(PersonController.class);
 
     PersonAiService personAiService;
 
