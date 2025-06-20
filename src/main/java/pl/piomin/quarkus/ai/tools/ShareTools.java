@@ -18,6 +18,6 @@ public class ShareTools {
 
     @Tool("Return number of shares for each company in my wallet")
     public List<Share> getNumberOfShares() {
-        return (List<Share>) shareRepository.findAll();
+        return shareRepository.findAll().list();
     }
 }
