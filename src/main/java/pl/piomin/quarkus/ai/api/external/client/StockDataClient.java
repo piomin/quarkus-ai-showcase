@@ -14,6 +14,6 @@ public interface StockDataClient {
     @ClientQueryParam(name = "company", value = "{company}")
     @ClientQueryParam(name = "apikey", value = "{apikey}")
     @ClientQueryParam(name = "interval", value = "1min")
-    @ClientQueryParam(name = "outputsize", value = "1")
-    StockData getStockData(String company, String apiKey);
+    @ClientQueryParam(name = "outputsize", value = "{outputsize}")
+    StockData getStockData(String company, String apiKey, int outputsize);
 }
