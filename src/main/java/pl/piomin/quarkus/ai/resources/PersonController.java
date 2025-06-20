@@ -1,9 +1,8 @@
-package pl.piomin.quarkus.ai;
+package pl.piomin.quarkus.ai.resources;
 
 import pl.piomin.quarkus.ai.api.PersonResponse;
 import pl.piomin.quarkus.ai.model.Person;
 import pl.piomin.quarkus.ai.service.PersonAiService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.logging.Logger;
