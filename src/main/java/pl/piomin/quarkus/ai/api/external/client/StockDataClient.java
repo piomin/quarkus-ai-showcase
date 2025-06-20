@@ -1,6 +1,5 @@
 package pl.piomin.quarkus.ai.api.external.client;
 
-import io.quarkus.rest.client.reactive.ClientQueryParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
