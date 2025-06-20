@@ -18,12 +18,9 @@ import java.util.List;
 public class StockTools {
 
     private Logger log;
-    
-    @RestClient
     private StockDataClient stockDataClient;
-    
-    @Inject
-    public StockTools(StockDataClient stockDataClient, Logger log) {
+
+    public StockTools(@RestClient StockDataClient stockDataClient, Logger log) {
         this.stockDataClient = stockDataClient;
         this.log = log;
     }
