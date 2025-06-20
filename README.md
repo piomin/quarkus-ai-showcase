@@ -7,7 +7,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=piomin_quarkus-ai-showcase&metric=coverage)](https://sonarcloud.io/dashboard?id=piomin_quarkus-ai-showcase)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=piomin_quarkus-ai-showcase&metric=ncloc)](https://sonarcloud.io/dashboard?id=piomin_quarkus-ai-showcase)
 
-A comprehensive Quarkus application demonstrating AI integration using LangChain4j with multiple AI providers: **OpenAI**, **Mistral AI**, and **Ollama**. The application showcases person data generation and retrieval with chat memory capabilities.
+A comprehensive Quarkus application demonstrating AI integration using LangChain4j with multiple AI providers: **OpenAI**, **Mistral AI**, and **Ollama**. The application showcases person data generation, chat memory capabilities, and **AI-powered stock portfolio management** using LangChain4j Tools.
 
 ## Articles
 
@@ -18,6 +18,9 @@ A comprehensive Quarkus application demonstrating AI integration using LangChain
 - 🤖 **Multi-AI Provider Support**: Switch between OpenAI, Mistral AI, and Ollama
 - 🧠 **Chat Memory**: Maintains conversation context for personalized interactions
 - 🚀 **RESTful API**: Clean REST endpoints for AI-powered person generation
+- 🛠️ **LangChain4j Tools**: AI agents with access to external APIs and database operations
+- 💼 **Smart Portfolio Management**: AI-powered stock wallet analysis and calculations
+- 📊 **Real-time Stock Data**: Integration with external stock market APIs
 - ⚡ **Quarkus Performance**: Lightning-fast startup and low memory footprint
 - 🔧 **Easy Configuration**: Simple environment-based configuration
 
@@ -26,6 +29,7 @@ A comprehensive Quarkus application demonstrating AI integration using LangChain
 - Java 17 or higher
 - Maven 3.8+ or Gradle
 - Choose at least one AI provider:
+- Stock API key (optional, for wallet functionality)
 
 ### OpenAI Setup
 1. Create an account at [OpenAI](https://platform.openai.com/)
@@ -42,6 +46,14 @@ A comprehensive Quarkus application demonstrating AI integration using LangChain
 2. Start the Ollama service: `ollama serve`
 3. Pull a model: `ollama pull llama2` (or any compatible model)
 4. Ensure Ollama is running on `http://localhost:11434` (default)
+
+### Stock API Setup (Optional)
+For wallet functionality with real-time stock data:
+1. Create an account at [Twelve Data](https://twelvedata.com/)
+2. Generate a free API key from your dashboard
+3. Set the `STOCK_API_KEY` environment variable
+
+**Note:** The wallet functionality will work without the API key, but will use mock data for demonstration purposes.
 
 ## Configuration
 
@@ -60,6 +72,13 @@ export MISTRAL_AI_TOKEN=your-mistral-api-key
 
 # For Ollama
 export AI_MODEL_PROVIDER=ollama
+```
+
+### Stock API Configuration
+
+```bash
+# Optional: For real stock data (Twelve Data API)
+export STOCK_API_KEY=your-twelvedata-api-key
 ```
 
 ### Model Configuration
@@ -117,7 +136,13 @@ ollama pull llama2
 export AI_MODEL_PROVIDER=ollama
 ```
 
-### 3. Run the Application
+### 3. Configure Stock API (Optional)
+```bash
+# For real-time stock data in wallet functionality
+export STOCK_API_KEY=your-twelvedata-api-key
+```
+
+### 4. Run the Application
 
 **Development Mode (with hot reload):**
 ```bash
@@ -139,6 +164,8 @@ java -jar target/quarkus-app/quarkus-run.jar
 The application will start on `http://localhost:8080`
 
 ## API Endpoints
+
+### Person Generation Endpoints
 
 ### Generate Persons
 **Endpoint:** `GET /api/persons/generate`
@@ -194,6 +221,48 @@ curl -X GET http://localhost:8080/api/persons/1
 }
 ```
 
+### Wallet and Stock Portfolio Endpoints
+
+### Calculate Current Wallet Value
+**Endpoint:** `GET /wallet/with-tools`
+
+Uses AI with LangChain4j tools to calculate the current value of your stock portfolio based on real-time stock prices.
+
+**Example Request:**
+```bash
+curl -X GET http://localhost:8080/wallet/with-tools
+```
+
+**Example Response:**
+```
+Based on the current stock prices, your wallet value is approximately $15,420.50. 
+Here's the breakdown:
+- AAPL: 10 shares at $154.25 = $1,542.50
+- GOOGL: 5 shares at $125.60 = $628.00
+- TSLA: 8 shares at $201.20 = $1,609.60
+- MSFT: 12 shares at $284.91 = $3,418.92
+- AMZN: 15 shares at $145.86 = $2,187.90
+- NVDA: 6 shares at $875.28 = $5,251.68
+- META: 4 shares at $245.64 = $982.56
+```
+
+### Find Highest Portfolio Value Day
+**Endpoint:** `GET /wallet/highest-day/{days}`
+
+Uses AI to analyze historical stock data and determine on which day during the specified period your portfolio had the highest value.
+
+**Example Request:**
+```bash
+curl -X GET http://localhost:8080/wallet/highest-day/30
+```
+
+**Example Response:**
+```
+During the last 30 days, your wallet had the highest value on January 15, 2024, 
+with a total value of $16,847.32. This was primarily due to strong performance 
+in NVDA (+12.5%) and TSLA (+8.3%) on that day.
+```
+
 ## Technology Stack
 
 - **Quarkus 3.15.1** - Supersonic Subatomic Java Framework
@@ -201,7 +270,10 @@ curl -X GET http://localhost:8080/api/persons/1
   - OpenAI integration (v0.26.2)
   - Mistral AI integration (v0.27.0.CR1)
   - Ollama integration (v0.26.0.CR2)
+  - AI Tools and Agents support
 - **JAX-RS (Quarkus REST)** - RESTful web services
+- **Hibernate ORM with Panache** - Database operations
+- **REST Client** - External API integration
 - **Jackson** - JSON processing
 - **CDI (Contexts and Dependency Injection)** - Dependency injection
 
@@ -211,23 +283,64 @@ curl -X GET http://localhost:8080/api/persons/1
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   REST Client   │───▶│ PersonController │───▶│ PersonAiService │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
+                       ┌──────────────────┐    ┌─────────────────┐
+                       │ WalletController │───▶│ WalletAiService │
+                       └──────────────────┘    └─────────────────┘
                                                      │
-                   ┌──────────────────┐            │
-                   │   Config Class   │◄───────────┘
-                   │  (Provider Setup)│
-                   └──────────────────┘
-                            │
-                   ┌──────────────────┐
-                   │   LangChain4j    │
-                   │   AI Providers   │
-                   └──────────────────┘
-                            │
-         ┌──────────────────┼──────────────────┐
-         │                  │                  │
- ┌───────▼────────┐ ┌───────▼────────┐ ┌──────▼───────┐
- │     OpenAI     │ │   Mistral AI   │ │    Ollama    │
- │   (gpt-4o-mini)│ │ (mistral-small)│ │   (llama3.2) │
- └────────────────┘ └────────────────┘ └──────────────┘
+                                        ┌────────────┼────────────┐
+                                        │            │            │
+                                   ┌────▼────┐ ┌────▼────┐ ┌─────▼──────┐
+                                   │  Stock  │ │  Share  │ │   Config   │
+                                   │  Tools  │ │  Tools  │ │   Class    │
+                                   └────┬────┘ └────┬────┘ └─────┬──────┘
+                                        │           │            │
+                              ┌─────────▼───┐   ┌───▼────────┐   │
+                              │ Stock Data  │   │   Share    │   │
+                              │   Client    │   │Repository  │   │
+                              └─────────────┘   └────────────┘   │
+                                        │                        │
+                                   ┌────▼────┐                   │
+                                   │External │                   │
+                                   │Stock API│                   │
+                                   └─────────┘                   │
+                                                                 │
+                                        ┌────────────────────────▼────┐
+                                        │         LangChain4j         │
+                                        │        AI Providers         │
+                                        └────────────────────────────┘  
+                                                     │
+                                  ┌──────────────────┼──────────────────┐
+                                  │                  │                  │
+                          ┌───────▼────────┐ ┌───────▼────────┐ ┌──────▼───────┐
+                          │     OpenAI     │ │   Mistral AI   │ │    Ollama    │
+                          │   (gpt-4o-mini)│ │ (mistral-small)│ │   (llama3.2) │
+                          └────────────────┘ └────────────────┘ └──────────────┘
+```
+
+## LangChain4j AI Tools
+
+The application demonstrates advanced AI capabilities using LangChain4j Tools, which allow AI models to interact with external systems and databases:
+
+### Stock Tools
+- **Latest Stock Prices**: Retrieves real-time stock prices for companies
+- **Historical Stock Data**: Fetches historical stock prices for trend analysis
+- **External API Integration**: Connects to Twelve Data API for market data
+
+### Share Tools  
+- **Portfolio Information**: Accesses user's stock holdings from the database
+- **Database Integration**: Uses Hibernate Panache for data operations
+
+### AI Service Integration
+The `WalletAiService` combines both tool sets to provide intelligent portfolio analysis:
+```java
+@RegisterAiService(tools = {StockTools.class, ShareTools.class})
+public interface WalletAiService {
+    // AI can automatically call tools to calculate portfolio values
+    String calculateWalletValueWithTools();
+    
+    // AI can analyze historical data to find optimal periods
+    String calculateHighestWalletValue(int days);
+}
 ```
 
 ## Development
@@ -236,11 +349,22 @@ curl -X GET http://localhost:8080/api/persons/1
 ```
 src/main/java/com/example/
 ├── PersonController.java          # REST endpoints
+├── WalletController.java          # Wallet/portfolio endpoints
 ├── Config.java                    # AI provider configuration
 ├── model/
-│   └── Person.java                # Person data model
-└── service/
-    └── PersonAiService.java       # AI service interface
+│   ├── Person.java                # Person data model
+│   └── Share.java                 # Stock share entity
+├── repository/
+│   └── ShareRepository.java       # Database operations for shares
+├── service/
+│   ├── PersonAiService.java       # AI service interface
+│   └── WalletAiService.java       # AI service with tools
+├── tools/
+│   ├── StockTools.java            # Stock market data tools
+│   └── ShareTools.java            # Portfolio data tools
+└── api/
+    ├── external/                  # External API models
+    └── client/                    # REST clients
 ```
 
 ### Running Tests
@@ -274,6 +398,12 @@ This enables hot reload—changes to your code will be automatically reflected w
 - Verify the base URL is accessible: `curl http://localhost:11434/api/version`
 - Try pulling the model: `ollama pull llama2`
 
+**Stock API Issues:**
+- Verify your `STOCK_API_KEY` is set correctly
+- Check your Twelve Data API quota and limits
+- Test the API endpoint directly: `curl "https://api.twelvedata.com/time_series?symbol=AAPL&interval=1min&apikey=YOUR_KEY"`
+- The application will work with mock data if no API key is provided
+
 **General Debug Steps:**
 1. Enable debug logging by setting `%dev.quarkus.log.console.level=DEBUG`
 2. Check application logs for specific error messages
@@ -285,6 +415,8 @@ This enables hot reload—changes to your code will be automatically reflected w
 The application logs detailed information about:
 - Selected AI provider on startup
 - API requests and responses
+- Stock API calls and responses
+- AI tool executions and results
 - Error details for troubleshooting
 
 ## Contributing
