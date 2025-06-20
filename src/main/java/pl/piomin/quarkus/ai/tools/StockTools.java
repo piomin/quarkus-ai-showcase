@@ -22,13 +22,13 @@ public class StockTools {
     @Inject
     @RestClient
     private StockDataClient stockDataClient;
-    @ConfigProperty(name = "${STOCK_API_KEY}", defaultValue = "none")
+    @ConfigProperty(name = "STOCK_API_KEY", defaultValue = "none")
     String apiKey;
 
     @Tool("Return latest stock prices for a given company")
     public StockResponse getLatestStockPrices(String company) {
         log.infof("Get stock prices for: %s", company);
-        StockData data = stockDataClient.getStockData(company, apiKey, 1);
+        StockData data = stockDataClient.getStockData(company, apiKey, "1min", 1);
         DailyStockData latestData = data.getValues().get(0);
         log.infof("Get stock prices (%s) -> %s", company, latestData.getClose());
         return new StockResponse(Float.parseFloat(latestData.getClose()));
@@ -37,7 +37,7 @@ public class StockTools {
     @Tool("Return historical daily stock prices for a given company")
     public List<DailyShareQuote> getHistoricalStockPrices(String company, int days) {
         log.infof("Get historical stock prices: %s for %d days", company, days);
-        StockData data = stockDataClient.getStockData(company, apiKey, days);
+        StockData data = stockDataClient.getStockData(company, apiKey, "1min", days);
         return data.getValues().stream()
                 .map(d -> new DailyShareQuote(company, Float.parseFloat(d.getClose()), d.getDatetime()))
                 .toList();
