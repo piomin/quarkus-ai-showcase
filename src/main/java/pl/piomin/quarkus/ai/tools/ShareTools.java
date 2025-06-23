@@ -10,7 +10,7 @@ import java.util.List;
 @ApplicationScoped
 public class ShareTools {
 
-    private ShareRepository shareRepository;
+    private final ShareRepository shareRepository;
 
     public ShareTools(ShareRepository shareRepository) {
         this.shareRepository = shareRepository;

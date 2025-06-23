@@ -16,8 +16,7 @@ public class WalletGuardrail implements OutputGuardrail {
     Pattern pattern = Pattern.compile("\\*\\*\\*(.*?)\\*\\*\\*");
 
     private Logger log;
-	
-    @Inject
+
     public WalletGuardrail(Logger log) {
         this.log = log;
     }

@@ -12,6 +12,7 @@ A comprehensive Quarkus application demonstrating AI integration using LangChain
 ## Articles
 
 1. Getting started with Quarkus LangChain4j **Chat Model** and easily switch between different AI providers including **OpenAI**, **Mistral AI** and **Ollama**. The example is available in the branch [master](https://github.com/piomin/quarkus-ai-showcase/tree/master). A detailed guide may be found in the following article: [Getting Started with Quarkus LangChain4j and Chat Model](https://piotrminkowski.com/2025/06/18/getting-started-with-quarkus-langchain4j-and-chat-model/)
+2.  AI **Tool Calling** with Quarkus LangChain4j. How to call AI functions with Quarkus, OpenAI, and LangChain4j. The example is available in the branch [master](https://github.com/piomin/quarkus-ai-showcase/tree/master). A detailed guide may be found in the following article: [AI Tool Calling with Quarkus LangChain4j](https://piotrminkowski.com/2025/06/23/ai-tool-calling-with-quarkus-langchain4j/)
 
 ## Features
 
