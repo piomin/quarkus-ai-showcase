@@ -6,6 +6,7 @@ import io.restassured.http.ContentType;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.*;
 import pl.piomin.quarkus.ai.api.external.DailyStockData;
+import pl.piomin.quarkus.ai.api.external.Meta;
 import pl.piomin.quarkus.ai.api.external.StockData;
 import pl.piomin.quarkus.ai.api.external.client.StockDataClient;
 
@@ -53,6 +54,7 @@ class WalletControllerTest {
         dailyData.setVolume("1000");
 
         StockData stockData = new StockData();
+        stockData.setMeta(new Meta(symbol));
         stockData.setValues(List.of(dailyData));
         return stockData;
     }
