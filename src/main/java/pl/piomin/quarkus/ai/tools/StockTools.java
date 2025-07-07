@@ -2,7 +2,6 @@ package pl.piomin.quarkus.ai.tools;
 
 import dev.langchain4j.agent.tool.Tool;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
