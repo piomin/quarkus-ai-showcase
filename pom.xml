@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <quarkus.platform.version>3.24.3</quarkus.platform.version>
+        <quarkus.platform.version>3.24.4</quarkus.platform.version>
         <compiler-plugin.version>3.14.0</compiler-plugin.version>
         <surefire-plugin.version>3.5.3</surefire-plugin.version>
         <quarkus-langchain4j.version>1.0.2</quarkus-langchain4j.version>
