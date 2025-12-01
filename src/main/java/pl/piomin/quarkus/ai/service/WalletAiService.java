@@ -1,8 +1,8 @@
 package pl.piomin.quarkus.ai.service;
 
 import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.guardrail.OutputGuardrails;
 import io.quarkiverse.langchain4j.RegisterAiService;
-import io.quarkiverse.langchain4j.guardrails.OutputGuardrails;
 import pl.piomin.quarkus.ai.tools.ShareTools;
 import pl.piomin.quarkus.ai.tools.StockTools;
 import pl.piomin.quarkus.ai.validate.WalletGuardrail;
