@@ -15,7 +15,7 @@
 
         <quarkus.platform.version>3.26.4</quarkus.platform.version>
         <compiler-plugin.version>3.15.0</compiler-plugin.version>
-        <surefire-plugin.version>3.5.4</surefire-plugin.version>
+        <surefire-plugin.version>3.5.5</surefire-plugin.version>
         <quarkus-langchain4j.version>1.7.1</quarkus-langchain4j.version>
 
         <sonar.projectKey>piomin_quarkus-ai-showcase</sonar.projectKey>
